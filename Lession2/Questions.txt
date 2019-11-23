@@ -1,0 +1,21 @@
+ Если findElement не находит нужный объект, то имеем:
+    if (value == null) {
+        throw new NoSuchElementException(String.format("Cannot locate an element using %s=%s", by, using));
+
+ Если findElements не находит нужные объекты, то имеем пустой List:
+        return Collections.emptyList();
+
+ findElement не может найти более одного элемента. Он находит первый, который попадается в результате поиска
+ и возвращает его. Далее поиск не продолжается:
+            if (value == null) {
+                 throw new NoSuchElementException(String.format("Cannot locate an element using %s=%s", by, using));
+             } else {
+                 WebElement element;
+                 try {
+                     element = (WebElement)value;
+                 } catch (ClassCastException var7) {
+                     throw new WebDriverException("Returned value cannot be converted to WebElement: " + value, var7);
+                 }
+
+                 this.setFoundBy(this, element, by, using);
+                 return element;
