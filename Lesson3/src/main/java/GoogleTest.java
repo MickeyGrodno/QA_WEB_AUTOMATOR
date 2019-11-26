@@ -50,6 +50,6 @@ public class GoogleTest {
 
         System.out.println(pictureStyle);
 
-//        driver.quit();
+        driver.quit();
     }
 }
