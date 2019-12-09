@@ -16,18 +16,19 @@ public class TaskTable {
         System.setProperty("webdriver.chrome.driver", "E:\\QA_WEB_AUTOMATOR\\Projects\\driver\\chromedriver.exe");
 
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get(page);
         element = driver.findElement(By.id("customers"));
         table = new Table(element);
 
-        table.getAllTitles();
-        table.getNumberOfLines();
-        table.getCurrentCell(2, 3);
-        table.getCurrentCell(4, "Company");
-        table.getCurrentCell(1, "Country");
-        table.getCurrentCell(2, "Contact");
+        table.printAllTitles();
+        table.printNumberOfLines();
+        table.printCurrentCell(2, 3);
+        table.printCurrentCell(4, 1);
+        table.printCurrentCell(4, "Company");
+        table.printCurrentCell(1, "Country");
+        table.printCurrentCell(2, "Contact");
 
         driver.quit();
     }

@@ -2,13 +2,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeleniumDemo {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "E:/QA_WEB_AUTOMATOR/Lesson 2/Project L1/driver/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-        ArrayList<WebElement> webElements;
+        List<WebElement> webElements;
         final String request = "Selenium";
         String firstPageTitle;
         String secondPageTitle;
@@ -18,9 +20,9 @@ public class SeleniumDemo {
             driver.get("https://selenium.dev/");
             WebElement queryInput = driver.findElement(By.id("gsc-i-id1"));
             queryInput.sendKeys(request + "\n");
-            webElements = (ArrayList<WebElement>) driver.findElements(By.partialLinkText("Selenium"));
+            webElements = driver.findElements(By.partialLinkText("Selenium"));
 
-            if (webElements.isEmpty() != true) {
+            if (!webElements.isEmpty()) {
                 System.out.println("Most popular links with request \"" + request + "\" :");
                 for (WebElement element : webElements) {
                     System.out.println(element.getText());
@@ -42,7 +44,7 @@ public class SeleniumDemo {
             System.out.println("First page title - " + firstPageTitle + ";");
             System.out.println("Second page title - " + secondPageTitle + ".");
         } finally {
-			driver.quit();
+            driver.quit();
         }
     }
 }

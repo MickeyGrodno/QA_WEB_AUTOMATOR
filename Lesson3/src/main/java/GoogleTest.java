@@ -41,10 +41,9 @@ public class GoogleTest {
 
             webElements = (ArrayList<WebElement>) driver.findElements(By.className("hdtb-mn-hd"));
             Optional<WebElement> filterByLable = webElements.stream().
-                    filter(elem -> {
-                        String lable = elem.getAttribute("aria-label");
-                        return lable != null && lable.equals("Тип");
-                    }).findFirst();
+                    filter(elem ->
+                            elem.getAttribute("aria-label") != null && elem.getAttribute("aria-label").equals("Тип")
+                    ).findFirst();
 
             if (!filterByLable.isPresent()) {
                 throw new NoSuchElementException("Element not found!");
