@@ -11,7 +11,7 @@ public class LogOutTest extends DataFixture {
     }
 
     @Test
-    public void searchAndDeleteCouponTest() {
+    public void logOutTest() {
         userPanel = new UserPanel(driver);
         userPanel.logOut();
         Assert.assertEquals(loginPageUrl, driver.getCurrentUrl());
