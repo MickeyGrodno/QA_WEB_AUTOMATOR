@@ -5,8 +5,23 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeFixture {
+public class DataFixture {
     protected static WebDriver driver;
+    protected String email = "demo@open-eshop.com";
+    protected String password = "demo";
+    protected String couponName = "GESCoupon";
+    protected String validDate = "20200101";
+    protected int numberOfCoupons = 1;
+    protected String loginPageUrl = "http://open-eshop.stqa.ru/oc-panel/auth/login";
+
+    protected HomePage checkAndLogin() {
+        if (driver.getCurrentUrl().equals(loginPageUrl)) {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.loginWithUserData(email,password);
+        }
+        return new HomePage(driver);
+    }
+
     @Rule
     public ExternalResource driverRule = new ExternalResource() {
         @Override
@@ -16,7 +31,7 @@ public class ChromeFixture {
             driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().window().maximize();
-            driver.get("http://open-eshop.stqa.ru/oc-panel/auth/login/");
+            driver.get(loginPageUrl);
         }
 
         @Override

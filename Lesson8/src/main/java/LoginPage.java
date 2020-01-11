@@ -5,9 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     private WebDriver driver;
-    @FindBy(xpath = "//section [@id='page']/form/div[1]/div/input")
+    private String loginPageUrl = "http://open-eshop.stqa.ru/oc-panel/auth/login";
+    @FindBy(xpath = "//section[@id='page']//input[@placeholder='Email']")
     private WebElement emailField;
-    @FindBy(xpath = "//section [@id='page']/form/div[2]/div/input")
+    @FindBy(xpath = "//section[@id='page']//input[@placeholder='Password']")
     private WebElement passwordField;
     @FindBy(xpath = "(//i [@class='glyphicon glyphicon-user glyphicon']/parent::*)[2]")
     private WebElement loginButton;

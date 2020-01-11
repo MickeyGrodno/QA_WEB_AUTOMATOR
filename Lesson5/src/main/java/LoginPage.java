@@ -24,13 +24,6 @@ public class LoginPage {
         return this;
     }
 
-    public LoginPage loginWithInvalidCreds(String username, String password) {
-        this.typeUsername(username);
-        this.typePassword(password);
-        driver.findElement(signInButton).click();
-        return this;
-    }
-
     public String getHeadingText() {
         return driver.findElement(heading).getText();
     }

@@ -1,21 +1,19 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LogOutTest extends ChromeFixture {
+public class LogOutTest extends DataFixture {
     private UserPanel userPanel;
-    private LoginPage loginPage;
-    private String email = "demo@open-eshop.com";
-    private String password = "demo";
 
     @Before
     public void configuration() {
-        loginPage = new LoginPage(driver);
-        loginPage.loginWithUserData(email, password);
+        checkAndLogin();
     }
 
     @Test
     public void searchAndDeleteCouponTest() {
         userPanel = new UserPanel(driver);
         userPanel.logOut();
+        Assert.assertEquals(loginPageUrl, driver.getCurrentUrl());
     }
 }

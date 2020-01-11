@@ -3,11 +3,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class CouponsPage {
     private WebDriver driver;
-    @FindBy(xpath = "//a [@href ='http://open-eshop.stqa.ru/oc-panel/Coupon/create']")
+    @FindBy(css = "div.pull-left>a")
     private WebElement createNewCouponButton;
     @FindBy(id = "name")
     private WebElement couponNameField;
@@ -20,12 +21,15 @@ public class CouponsPage {
     @FindBy(xpath = "//input [@placeholder = 'Coupon name']")
     private WebElement searchField;
     @FindBy(xpath = "//div[@class='table-responsive']/table/tbody/tr/td[7]/a[2]")
-//    @FindBy(xpath = "//a [@datd-id='tr3005']")
     private WebElement deleteCouponButton;
     @FindBy(className = "confirm")
     private WebElement confirmButton;
     @FindBy(xpath = "//button [text() = 'Search']")
     private WebElement searchCouponButton;
+    @FindBy(css = "h4.alert-heading")
+    private WebElement couponCreatedMessage;
+    @FindBy(xpath = "//table[@class='table table-striped table-bordered']//tbody/tr")
+    private List<WebElement> allSearchTableLines;
 
     public CouponsPage(WebDriver driver) {
         this.driver = driver;
@@ -41,12 +45,44 @@ public class CouponsPage {
         return this;
     }
 
-    public CouponsPage deleteCoupon(String couponName) throws InterruptedException {
+    public CouponsPage searchCoupon(String couponName) {
+        searchField.clear();
         searchField.sendKeys(couponName);
         searchCouponButton.click();
+        return this;
+    }
+
+    public CouponsPage deleteCoupon() throws InterruptedException {
+        TimeUnit.MILLISECONDS.sleep(500);
         deleteCouponButton.click();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.MILLISECONDS.sleep(1100);
         confirmButton.click();
         return this;
     }
+
+    public String getCouponCreatedMessage() {
+        return couponCreatedMessage.getText();
+    }
+
+    public boolean getSearchTableIsEmpty() {
+        return allSearchTableLines.isEmpty();
+    }
+
+    public boolean getSearchTableHasNewCoupon(String couponName) {
+        return !allSearchTableLines.isEmpty();
+    }
+
+    public int getSearchTableSize() {
+        return allSearchTableLines.size();
+    }
+
+    public String getSearchFieldText() {
+        return searchField.getAttribute("value");
+    }
+
+    public boolean getСouponIsDeleted() throws InterruptedException {
+        TimeUnit.MILLISECONDS.sleep(1100);
+        return !allSearchTableLines.get(0).isDisplayed();
+    }
+
 }
