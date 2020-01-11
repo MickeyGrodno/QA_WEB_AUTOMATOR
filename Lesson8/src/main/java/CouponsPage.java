@@ -40,6 +40,7 @@ public class CouponsPage {
         createNewCouponButton.click();
         couponNameField.sendKeys(couponName);
         validDateField.sendKeys(validDate);
+        numberOfCouponsField.clear();
         numberOfCouponsField.sendKeys(String.valueOf(numberOfCoupons));
         sumbitButton.submit();
         return this;

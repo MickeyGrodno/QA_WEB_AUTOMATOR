@@ -25,7 +25,6 @@ public class SearchAndDeleteCouponTest extends DataFixture {
         Assert.assertEquals(couponName, couponsPage.searchCoupon(couponName).getSearchFieldText());
     }
 
-
     @Test
     public void searchAndDeleteCouponTest() throws InterruptedException {
         couponsPage.searchCoupon(couponName);
