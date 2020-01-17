@@ -134,7 +134,7 @@ public class CouponsPage {
         return searchField.getAttribute("value");
     }
 
-    public boolean getСouponIsDeleted() throws InterruptedException {
+    public boolean getCouponIsDeleted() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(1100);
         boolean couponIsDeleted = false;
         try {
@@ -145,5 +145,4 @@ public class CouponsPage {
         }
         return couponIsDeleted;
     }
-
 }

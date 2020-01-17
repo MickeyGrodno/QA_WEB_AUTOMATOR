@@ -37,12 +37,12 @@ public class SearchAndDeleteCouponTest extends DataFixture {
     @Test
     public void deletedCouponNotDisplayedTest() throws InterruptedException {
         couponsPage.searchCoupon(couponName).deleteCoupon();
-        Assert.assertTrue(couponsPage.getСouponIsDeleted());
+        Assert.assertTrue(couponsPage.getCouponIsDeleted());
     }
 
     @AfterMethod
     public void delCoupon() throws InterruptedException {
-        if (couponsPage.getSearchTableHasNewCoupon(couponName) && !couponsPage.getСouponIsDeleted()) {
+        if (couponsPage.getSearchTableHasNewCoupon(couponName) && !couponsPage.getCouponIsDeleted()) {
             couponsPage.deleteCoupon();
         }
     }
