@@ -53,47 +53,79 @@ public class CouponsPage {
             log.info("Send keys " + numberOfCoupons);
             sumbitButton.submit();
             log.warn("Coupon with name " + couponName + " created!");
-            return this;
         } catch (IllegalArgumentException e) {
             log.fatal("Fields 'coupon name', 'valid date' and 'number of coupons' cannot be null");
         }
         catch (NoSuchElementException e) {
             log.fatal("WebElement not found");
         }
-        finally {
-            return this;
-        }
-    }
-
-    public CouponsPage searchCoupon(String couponName) {
-        searchField.clear();
-        searchField.sendKeys(couponName);
-        searchCouponButton.click();
         return this;
     }
 
+    public CouponsPage searchCoupon(String couponName) {
+        try {
+            searchField.clear();
+            searchField.sendKeys(couponName);
+            searchCouponButton.click();
+        } catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return null;
+    }
+
     public CouponsPage deleteCoupon() throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(500);
-        deleteCouponButton.click();
-        TimeUnit.MILLISECONDS.sleep(1100);
-        confirmButton.click();
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+            deleteCouponButton.click();
+            TimeUnit.MILLISECONDS.sleep(1100);
+            confirmButton.click();
+        }
+        catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
         return this;
     }
 
     public String getCouponCreatedMessage() {
-        return couponCreatedMessage.getText();
+        String text = "";
+        try {
+            text = couponCreatedMessage.getText();
+        }
+        catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return text;
     }
 
     public boolean getSearchTableIsEmpty() {
-        return allSearchTableLines.isEmpty();
+        boolean tableIsEmpty = false;
+        try {
+            tableIsEmpty = allSearchTableLines.isEmpty();
+        } catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return tableIsEmpty;
     }
 
     public boolean getSearchTableHasNewCoupon(String couponName) {
-        return !allSearchTableLines.isEmpty();
+        boolean tableHasNewCoupon = false;
+        try {
+            tableHasNewCoupon = !allSearchTableLines.isEmpty();
+        } catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return tableHasNewCoupon;
     }
 
     public int getSearchTableSize() {
-        return allSearchTableLines.size();
+        int size = 0;
+        try {
+            size = allSearchTableLines.size();
+        }
+        catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return size;
     }
 
     public String getSearchFieldText() {
@@ -102,7 +134,14 @@ public class CouponsPage {
 
     public boolean getСouponIsDeleted() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(1100);
-        return !allSearchTableLines.get(0).isDisplayed();
+        boolean couponIsDeleted = false;
+        try {
+            couponIsDeleted = !allSearchTableLines.get(0).isDisplayed();
+        }
+        catch (NoSuchElementException e) {
+            log.fatal("WebElement not found");
+        }
+        return couponIsDeleted;
     }
 
 }
