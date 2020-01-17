@@ -15,7 +15,7 @@ public class CouponsPage {
     private Logger log = Logger.getLogger(CouponsPage.class);
     @FindBy(css = "div.pull-left>a")
     private WebElement createNewCouponButton;
-    @FindBy(id = "nam")
+    @FindBy(id = "name")
     private WebElement couponNameField;
     @FindBy(name = "valid_date")
     private WebElement validDateField;
