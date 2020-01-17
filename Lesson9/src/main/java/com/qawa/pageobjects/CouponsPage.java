@@ -66,11 +66,12 @@ public class CouponsPage {
         try {
             searchField.clear();
             searchField.sendKeys(couponName);
+            log.info("Send keys " + couponName);
             searchCouponButton.click();
         } catch (NoSuchElementException e) {
             log.fatal("WebElement not found");
         }
-        return null;
+        return this;
     }
 
     public CouponsPage deleteCoupon() throws InterruptedException {
@@ -109,6 +110,7 @@ public class CouponsPage {
 
     public boolean getSearchTableHasNewCoupon(String couponName) {
         boolean tableHasNewCoupon = false;
+        searchCoupon(couponName);
         try {
             tableHasNewCoupon = !allSearchTableLines.isEmpty();
         } catch (NoSuchElementException e) {

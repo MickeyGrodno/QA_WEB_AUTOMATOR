@@ -1,10 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="SeleniumTest" verbose="1">
-    <test name="All">
-        <parameter name="browser" value="chrome" />
-        <packages>
-            <package name="com.qawa.tests"/>
-        </packages>
+<suite name="SeleniumTest">
+    <test name="testing">
+        <classes>
+            <class name="com.qawa.tests.LoginTest" />
+            <class name="com.qawa.tests.CreateCouponTest" />
+            <class name="com.qawa.tests.SearchAndDeleteCouponTest" />
+            <class name="com.qawa.tests.LogOutTest" />
+        </classes>
     </test>
 </suite>
