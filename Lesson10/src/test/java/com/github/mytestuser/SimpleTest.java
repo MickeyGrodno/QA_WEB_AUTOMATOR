@@ -20,6 +20,7 @@ import io.qameta.allure.Stories;
 import io.qameta.allure.Story;
 import io.qameta.allure.TmsLink;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -37,6 +38,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@ExtendWith(Watcher.class)
 public class SimpleTest {
 
     @Step("Check parameters are:")
@@ -405,7 +407,7 @@ public class SimpleTest {
 
     @Test
     public void failedTest2() {
-        fail("Этот тест тоже упал");
+        fail("This test failed to");
     }
 
     @Test
@@ -422,12 +424,12 @@ public class SimpleTest {
         assertTrue(1 == 1);
     }
 
-    @Test()
+    @Test
     public void csvAttachmentTest2() throws IOException, URISyntaxException {
         saveCsvAttachmentFromSample2();
     }
 
-    @Test()
+    @Test
     public void svgAttachmentTest2() throws Exception {
         saveSvgAttachment2();
     }
@@ -450,7 +452,7 @@ public class SimpleTest {
         return Files.readAllBytes(Paths.get(resource.toURI()));
     }
 
-    @Attachment
+    @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] getScreenShot() throws AWTException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(
