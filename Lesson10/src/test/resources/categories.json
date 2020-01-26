@@ -18,7 +18,22 @@
     "matchedStatuses": ["failed"]
   },
   {
-    "name": "Test defects",
-    "matchedStatuses": ["broken"]
+    "name": "Forced broken tests",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*IllegalState.*"
+  },
+  {
+    "name": "Math failed tests",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*Expected:.*"
+  },
+  {
+    "name": "Passed tests",
+    "matchedStatuses": ["passed"]
+  },
+  {
+    "name": "Forced failed tests",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*failed.*"
   }
 ]
