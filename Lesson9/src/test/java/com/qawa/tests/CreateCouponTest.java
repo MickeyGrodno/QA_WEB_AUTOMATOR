@@ -20,7 +20,7 @@ public class CreateCouponTest extends DataFixture {
         Assert.assertTrue(couponsPage.getSearchTableHasNewCoupon(couponName));
     }
 
-    @Test()
+    @Test
     public void createNewCouponSuccessIsPresentTest() {
         couponsPage.createNewCoupon(couponName, validDate, numberOfCoupons);
         Assert.assertEquals("Success", couponsPage.getCouponCreatedMessage());

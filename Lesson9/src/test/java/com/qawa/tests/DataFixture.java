@@ -16,7 +16,7 @@ import org.testng.annotations.Listeners;
 
 import java.util.concurrent.TimeUnit;
 
-@Listeners(TestListener.class)
+@Listeners({TestListener.class})
 public class DataFixture {
     protected static WebDriver driver;
     protected String email = "demo@open-eshop.com";
@@ -33,11 +33,6 @@ public class DataFixture {
         }
         return new HomePage(driver);
     }
-
-//    @BeforeSuite
-//    protected void beforeSuite() {
-//        BasicConfigurator.configure();
-//    }
 
     @BeforeMethod
     protected void beforeMethod() {
