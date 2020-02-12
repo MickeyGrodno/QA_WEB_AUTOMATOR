@@ -1,0 +1,15 @@
+{
+	"capabilities":
+	[
+		{
+			"browserName": "chrome",
+			"maxInstances": 3
+		},
+		{
+			"browserName": "internet explorer",
+			"maxInstances": 3
+		}
+	],
+	"port": 5557,
+	"hub": "http://localhost:4444"
+}
