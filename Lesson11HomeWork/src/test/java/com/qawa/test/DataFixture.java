@@ -33,6 +33,8 @@ public class DataFixture {
 
     @BeforeEach
     public void config(){
+        Configuration.browser = "chrome";
+        Configuration.browserVersion = "80.0.3987.106";
         Configuration.holdBrowserOpen = true;
         open(loginPageUrl);
     }

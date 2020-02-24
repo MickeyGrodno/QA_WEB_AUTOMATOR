@@ -25,7 +25,8 @@ public class DataFixture {
 
     @BeforeEach
     public void config(){
-//        Configuration.headless= true;
+        Configuration.headless= true;
+
         Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = false;
         open(loginPageUrl);

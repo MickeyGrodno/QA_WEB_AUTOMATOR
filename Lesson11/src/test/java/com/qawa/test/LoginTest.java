@@ -17,8 +17,4 @@ public class LoginTest extends DataFixture{
         loginPage.loginWithUserData(email,password);
         assertNotEquals(loginPageUrl, url());
     }
-//    @AfterEach
-//    public void deleteCoupon(){
-//        userPanel.logOut();
-//    }
 }

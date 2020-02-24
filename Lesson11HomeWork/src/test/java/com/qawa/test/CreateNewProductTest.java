@@ -2,11 +2,10 @@ package com.qawa.test;
 
 import com.qawa.pageobjects.LoginPage;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class CreateNewProductTest extends DataFixture{
-    @Disabled
+
     @Test
     public void createNewProductAndCheck() {
         loginPage = new LoginPage();

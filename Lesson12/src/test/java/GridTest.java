@@ -1,7 +1,9 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.grid.selenium.GridLauncher;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Browsers.CHROME;
@@ -37,11 +39,19 @@ public class GridTest {
     private SelenideElement searchField = $(By.xpath("//input[@id='edit-search-block-form-1']"));
     private SelenideElement searchButton = $(By.id("edit-submit"));
 
-//    @BeforeClass
-//    public static void beforeClassSetUp() {
-//        Hub hub = new Hub();
-//        hub.configure();
-//    }
+    @BeforeClass
+    public static void beforeClassSetUp() throws Exception {
+//        GridHubConfiguration conf = new GridHubConfiguration();
+//        conf.loadDefault();
+//        Hub hub = new Hub(conf);
+//        hub.start();
+
+        String[] a = {"-port", "4444",
+                "-host", "localhost",
+                "-role", "hub",
+                "-servlets", "com.seleniumgrid2api.servlet.AllProxiesJsonServlet,com.seleniumgrid2api.servlet.ProxyStatusJsonServlet" };
+        GridLauncher.main(a);
+        }
 
     @Before
     public void setUp() {

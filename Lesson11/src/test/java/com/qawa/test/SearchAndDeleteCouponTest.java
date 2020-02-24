@@ -17,8 +17,4 @@ public class SearchAndDeleteCouponTest extends DataFixture{
         couponsPage.searchCoupon(couponName);
         assertTrue(couponsPage.getSearchTableIsEmpty());
     }
-//    @AfterEach
-//    public void deleteCoupon(){
-//        userPanel.logOut();
-//    }
 }
