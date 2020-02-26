@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -22,14 +23,14 @@ public class ShoppingCartPage {
 
     public double getTotalProductsPrice() {
         double totalProduct;
-        totalProduct = Double.parseDouble($(By.xpath("//td[@id='total_product']"))
+        totalProduct = Double.parseDouble($(By.xpath("//td[@id='total_product']")).should(exist)
                 .getText()
                 .substring(2));
         return totalProduct;
     }
 
-    public boolean getCartIsNotEmpty() {
-        return $("table.table").exists();
+    public int getNumberOfProductsInCart() {
+        return $$("table.table>tbody>tr").size();
     }
 
     public ShoppingCartPage setProductQuantity(String value) {

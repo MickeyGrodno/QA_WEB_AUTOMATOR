@@ -4,6 +4,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.url;
@@ -19,13 +21,19 @@ public class MainPage {
     SelenideElement searchField = $(By.id("search_query_top"));
     SelenideElement searchButton = $(By.name("submit_search"));
     SelenideElement shoppingCartButton = $("div.shopping_cart>a");
-    SelenideElement firstProductInPage = $("//ul [@id = 'homefeatured']//div [@class = 'product-container']");
-    SelenideElement addToCartButton = $(By.xpath("//span [text()='Add to cart']"));
+    SelenideElement firstProductInPage = $(By.xpath("//ul [@id = 'homefeatured']//div [@class = 'product-container']"));
+    SelenideElement addToCartButton = $("p.buttons_bottom_block>button.exclusive");
+    SelenideElement singInButton = $(By.className("login"));
 
     private MainPage searchProduct(String query) {
         searchField.setValue(query);
         searchButton.click();
         return this;
+    }
+
+    public LoginPage goToLoginPage() {
+        singInButton.click();
+        return new LoginPage();
     }
 
     public boolean womenButtonMenuIsDisplayed() {
@@ -38,14 +46,14 @@ public class MainPage {
         return dressesButtonMenu.isDisplayed();
     }
 
-    public boolean productNotFound(String query) {
+    public boolean searchAndNotFoundProduct(String query) {
         searchProduct(query);
-        return $(By.className("alert alert-warning")).exists();
+        return $(By.className("alert-warning")).should(exist).exists();
     }
 
-    public boolean productFound(String query) {
+    public boolean searchAndFoundAnyProduct(String query) {
         searchProduct(query);
-        return $(By.xpath("//ul [@class='product_list grid row']/li")).exists();
+        return $(By.xpath("//ul [@class='product_list grid row']/li")).should(exist).exists();
     }
 
     public boolean summerDressUrlSame() {
@@ -54,22 +62,23 @@ public class MainPage {
         $(By.xpath("//li[@class='sfHover']//a[contains(text(),'Summer Dresses')]")).click();
         url1 = url();
         womenButton.click();
-        $(By.xpath("div.block_content>ul.tree>li.last>a")).click();
-        $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).click();
+        $("div.block_content>ul.tree>li.last>a").click();
+        $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).should(exist).click();
         url2 = url();
         return url1.equals(url2);
     }
-    public MainPage addAllDressesToCart() {
-        $(By.xpath("div.block_content>ul.tree>li.last>a")).click();
+    public int addAllDressesToCart() {
+        womenButton.click();
+        $("div.block_content>ul.tree>li.last>a").click();
         $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).click();
 
-        ElementsCollection allProducts = $$("ul.product_list>li");
+        ElementsCollection allProducts = $$("ul.product_list>li>div");
         for(SelenideElement element : allProducts) {
             element.hover();
-            addToCartButton.click();
+            element.$(".right-block").$(byText("Add to cart")).click();
             $("div.clearfix>div.layer_cart_cart>div.button-container>span>span").click();
         }
-        return this;
+        return allProducts.size();
     }
     public ShoppingCartPage goToShoppingCartPage() {
         shoppingCartButton.click();
@@ -77,8 +86,8 @@ public class MainPage {
     }
     public MainPage addProductsInCart(String value) {
         firstProductInPage.click();
-        $("//input[@id='quantity_wanted']").clear();
-        $("//input[@id='quantity_wanted']").setValue(value);
+        $(By.xpath("//input[@id='quantity_wanted']")).clear();
+        $(By.xpath("//input[@id='quantity_wanted']")).setValue(value);
         addToCartButton.click();
         $("a.fancybox-item").click();
         return this;

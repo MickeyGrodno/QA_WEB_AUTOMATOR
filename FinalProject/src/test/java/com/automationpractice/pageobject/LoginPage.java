@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
+
     SelenideElement userEmail = $(By.id("email"));
     SelenideElement userPassword = $(By.id("passwd"));
     SelenideElement signInButton = $(By.id("SubmitLogin"));
