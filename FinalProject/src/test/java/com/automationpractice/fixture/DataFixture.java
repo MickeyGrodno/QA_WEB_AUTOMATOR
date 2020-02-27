@@ -15,10 +15,10 @@ public class DataFixture {
     protected String correctPassword = "11111";
     protected String startPageUrl = "http://automationpractice.com/index.php";
     protected String myAccountPageUrl = "http://automationpractice.com/index.php?controller=my-account";
-    protected LoginPage loginPage;
+    protected LoginPage loginPage = new LoginPage();
     protected MainPage mainPage = new MainPage();
-    protected MyAccountPage myAccountPage;
-    protected ShoppingCartPage shoppingCartPage;
+    protected MyAccountPage myAccountPage = new MyAccountPage();
+    protected ShoppingCartPage shoppingCartPage = new ShoppingCartPage();
 
 
     @BeforeEach

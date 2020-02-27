@@ -4,7 +4,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -13,9 +12,7 @@ public class ShoppingCartPage {
         double allProdPrice = 0;
         ElementsCollection priceElements = $$("td.cart_total>span");
         for (SelenideElement element : priceElements){
-            String price = element.$("td.cart_total>span")
-                    .getText()
-                    .substring(2);
+            String price = element.getText().substring(1);
             allProdPrice += Double.parseDouble(price);
         }
         return allProdPrice;
@@ -23,9 +20,9 @@ public class ShoppingCartPage {
 
     public double getTotalProductsPrice() {
         double totalProduct;
-        totalProduct = Double.parseDouble($(By.xpath("//td[@id='total_product']")).should(exist)
+        totalProduct = Double.parseDouble($(By.xpath("//td[@id='total_product']"))
                 .getText()
-                .substring(2));
+                .substring(1));
         return totalProduct;
     }
 
@@ -39,8 +36,37 @@ public class ShoppingCartPage {
         return this;
     }
 
-    public ShoppingCartPage deleteFirstProduct() {
-        $("td.cart_delete>div>a").click();
+    public ShoppingCartPage deleteAllProducts() {
+        ElementsCollection allProducts;
+        allProducts = $$("td.cart_delete>div>a");
+        for (SelenideElement element : allProducts) {
+            element.click();
+        }
         return this;
+    }
+
+    public String createOrderAndGetOrderName() {
+        String orderName;
+        String correctEmail = "Sergei199@list.ru";
+        String correctPassword = "11111";
+        LoginPage loginPage= new LoginPage();
+
+        $(By.xpath("//a[@class='button btn btn-default standard-checkout button-medium']//span[contains(text(),'Proceed to checkout')]")).click();
+        loginPage.loginWithCorrectData(correctEmail, correctPassword);
+        $(By.name("processAddress")).click();
+        $(By.id("cgv")).click();
+        $(By.name("processCarrier")).click();
+        $(By.className("bankwire")).click();
+        $(By.xpath("//span[text()='I confirm my order']")).click();
+        orderName = getOrderNameFromText();
+        $(By.className("account")).click();
+        return orderName;
+    }
+
+    private String getOrderNameFromText(){
+        String line = $("div.box").getAttribute("innerHTML");
+        String part = line.split("<br>")[5];
+        String needLine = part.split(" ")[9];
+        return needLine;
     }
 }

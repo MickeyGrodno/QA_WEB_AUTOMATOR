@@ -14,17 +14,35 @@ public class CartTest extends DataFixture {
     }
 
     @Test
-    public void addZeroQuantityOfProducts() {
-        mainPage.addProductsInCart("0");
+    public void addZeroQuantityOfProductsTest() {
+        mainPage.addFirstProductInCartWithSetQuantity("0");
         assertEquals(0, mainPage.goToShoppingCartPage().getNumberOfProductsInCart());
     }
 
     @Test
-    public void correctAmountInCart() {
-        double allProdPrice;
+    public void correctAmountInCartTest() {
+        double allProdPrice, totalProduct;
         mainPage.addAllDressesToCart();
         allProdPrice = mainPage.goToShoppingCartPage().getAllProductsPrice();
-        assertEquals(allProdPrice, shoppingCartPage.getTotalProductsPrice());
+        totalProduct = shoppingCartPage.getTotalProductsPrice();
+        assertEquals(allProdPrice, totalProduct);
+    }
+
+    @Test
+    public void correctAmountInCartWithSetQuantityProductTest() {
+        double allProdPrice, totalProduct;
+        mainPage.addAllDressesToCart();
+        allProdPrice = mainPage.goToShoppingCartPage().setProductQuantity("5").getAllProductsPrice();
+        totalProduct = shoppingCartPage.getTotalProductsPrice();
+        assertEquals(allProdPrice, totalProduct);
+    }
+
+    @Test
+    public void deleteAllProductTest() {
+        mainPage.addAllDressesToCart();
+        shoppingCartPage = mainPage.goToShoppingCartPage().deleteAllProducts();
+        shoppingCartPage.getNumberOfProductsInCart();
+        assertEquals(0, shoppingCartPage.getNumberOfProductsInCart());
     }
 
 }

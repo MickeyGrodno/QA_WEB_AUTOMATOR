@@ -11,13 +11,11 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class MainPage {
-    SelenideElement womenButton = $(By.xpath("//a[@class='sf-with-ul'][text()='Women']"));
+    SelenideElement womenButton = $(By.xpath("//a[text()='Women']"));
 
-    SelenideElement dressesButton = $(By.xpath("//ul [@class = 'sf-menu clearfix menu-content sf-js-enabled sf-arrows']" +
-            "/li/a[text() = 'Dresses']"));
-    SelenideElement womenButtonMenu = $(By.xpath("//a[@class='sf-with-ul'][text()='Women']/following-sibling::*"));
-    SelenideElement dressesButtonMenu = $(By.xpath("//ul [@class = 'sf-menu clearfix menu-content sf-js-enabled " +
-            "sf-arrows']/li/a[text() = 'Dresses']/following-sibling::*"));
+    SelenideElement dressesButton = $(By.xpath("//div/ul/li/a[text()='Dresses']"));
+    SelenideElement womenButtonMenu = $(By.xpath("//a[text()='Women']/following-sibling::*"));
+    SelenideElement dressesButtonMenu = $(By.xpath("//div/ul/li/a[text() = 'Dresses']/following-sibling::*"));
     SelenideElement searchField = $(By.id("search_query_top"));
     SelenideElement searchButton = $(By.name("submit_search"));
     SelenideElement shoppingCartButton = $("div.shopping_cart>a");
@@ -72,10 +70,10 @@ public class MainPage {
         $("div.block_content>ul.tree>li.last>a").click();
         $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).click();
 
-        ElementsCollection allProducts = $$("ul.product_list>li>div");
+        ElementsCollection allProducts = $$("ul.product_list>li>div>div.right-block");
         for(SelenideElement element : allProducts) {
             element.hover();
-            element.$(".right-block").$(byText("Add to cart")).click();
+            element.$(byText("Add to cart")).click();
             $("div.clearfix>div.layer_cart_cart>div.button-container>span>span").click();
         }
         return allProducts.size();
@@ -84,12 +82,18 @@ public class MainPage {
         shoppingCartButton.click();
         return new ShoppingCartPage();
     }
-    public MainPage addProductsInCart(String value) {
+
+    public MainPage addFirstProductInCartWithSetQuantity(String value) {
         firstProductInPage.click();
-        $(By.xpath("//input[@id='quantity_wanted']")).clear();
-        $(By.xpath("//input[@id='quantity_wanted']")).setValue(value);
+        $("#quantity_wanted").clear();
+        $("#quantity_wanted").setValue(value);
         addToCartButton.click();
-        $("a.fancybox-item").click();
+        if($("a.fancybox-item").isDisplayed()) {
+            $("a.fancybox-item").click();
+        }
+        else {
+            $("span.continue>span").click();
+        }
         return this;
     }
 }
