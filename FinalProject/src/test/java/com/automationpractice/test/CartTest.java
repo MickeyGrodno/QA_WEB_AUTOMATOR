@@ -41,7 +41,6 @@ public class CartTest extends DataFixture {
     public void deleteAllProductTest() {
         mainPage.addAllDressesToCart();
         shoppingCartPage = mainPage.goToShoppingCartPage().deleteAllProducts();
-        shoppingCartPage.getNumberOfProductsInCart();
         assertEquals(0, shoppingCartPage.getNumberOfProductsInCart());
     }
 

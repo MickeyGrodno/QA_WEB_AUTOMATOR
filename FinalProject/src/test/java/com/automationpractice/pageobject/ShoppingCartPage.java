@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -41,6 +42,7 @@ public class ShoppingCartPage {
         allProducts = $$("td.cart_delete>div>a");
         for (SelenideElement element : allProducts) {
             element.click();
+            element.should(hidden);
         }
         return this;
     }
@@ -51,7 +53,7 @@ public class ShoppingCartPage {
         String correctPassword = "11111";
         LoginPage loginPage= new LoginPage();
 
-        $(By.xpath("//a[@class='button btn btn-default standard-checkout button-medium']//span[contains(text(),'Proceed to checkout')]")).click();
+        $("p.clearfix>a.button").click();
         loginPage.loginWithCorrectData(correctEmail, correctPassword);
         $(By.name("processAddress")).click();
         $(By.id("cgv")).click();

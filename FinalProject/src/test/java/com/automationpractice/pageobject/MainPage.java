@@ -19,7 +19,7 @@ public class MainPage {
     SelenideElement searchField = $(By.id("search_query_top"));
     SelenideElement searchButton = $(By.name("submit_search"));
     SelenideElement shoppingCartButton = $("div.shopping_cart>a");
-    SelenideElement firstProductInPage = $(By.xpath("//ul [@id = 'homefeatured']//div [@class = 'product-container']"));
+    SelenideElement firstProductInPage = $("ul#homefeatured>li>div");
     SelenideElement addToCartButton = $("p.buttons_bottom_block>button.exclusive");
     SelenideElement singInButton = $(By.className("login"));
 
@@ -51,7 +51,7 @@ public class MainPage {
 
     public boolean searchAndFoundAnyProduct(String query) {
         searchProduct(query);
-        return $(By.xpath("//ul [@class='product_list grid row']/li")).should(exist).exists();
+        return $("ul.product_list>li").should(exist).exists();
     }
 
     public boolean summerDressUrlSame() {
@@ -61,7 +61,8 @@ public class MainPage {
         url1 = url();
         womenButton.click();
         $("div.block_content>ul.tree>li.last>a").click();
-        $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).should(exist).click();
+        $(By.xpath("//div[@class='block_content']//ul//a[contains(text(),'Summer Dresses')]")).click();
+//        .should(exist)
         url2 = url();
         return url1.equals(url2);
     }
@@ -88,7 +89,7 @@ public class MainPage {
         $("#quantity_wanted").clear();
         $("#quantity_wanted").setValue(value);
         addToCartButton.click();
-        if($("a.fancybox-item").isDisplayed()) {
+        if($("a.fancybox-item").should(visible).isDisplayed()) {
             $("a.fancybox-item").click();
         }
         else {
